@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yeyupiaoling.testclassification">
+    package="com.yeyupiaoling.cv">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -13,11 +13,10 @@
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PaddleActivity"></activity>
-        <activity android:name=".NCNNActivity" />
-        <activity android:name=".MNNActivity" />
-        <activity android:name=".TFLiteActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.yeyupiaoling.cv.PaddleActivity"></activity>
+        <activity android:name="com.yeyupiaoling.cv.MNNActivity" />
+        <activity android:name="com.yeyupiaoling.cv.TFLiteActivity" />
+        <activity android:name="com.yeyupiaoling.cv.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
