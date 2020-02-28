@@ -33,15 +33,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (hasPermission()){
             switch (view.getId()) {
                 case R.id.tflite_btn:
-                    Intent intent1 = new Intent(MainActivity.this, TFLiteActivity.class);
+                    Intent intent1 = new Intent(MainActivity.this, TFLiteClassificationActivity.class);
                     startActivity(intent1);
                     break;
                 case R.id.mnn_btn:
-                    Intent intent2 = new Intent(MainActivity.this, MNNActivity.class);
+                    Intent intent2 = new Intent(MainActivity.this, MNNClassificationActivity.class);
                     startActivity(intent2);
                     break;
                 case R.id.paddle_btn:
-                    Intent intent4 = new Intent(MainActivity.this, PaddleActivity.class);
+                    Intent intent4 = new Intent(MainActivity.this, PaddleClassificationActivity.class);
                     startActivity(intent4);
                     break;
             }
