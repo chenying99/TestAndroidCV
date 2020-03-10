@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tflite_btn).setOnClickListener(this);
         findViewById(R.id.mnn_btn).setOnClickListener(this);
         findViewById(R.id.paddle_btn).setOnClickListener(this);
+        findViewById(R.id.tflite_btn2).setOnClickListener(this);
+        findViewById(R.id.mnn_btn2).setOnClickListener(this);
+        findViewById(R.id.paddle_btn2).setOnClickListener(this);
     }
 
     @Override
@@ -41,8 +44,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent2);
                     break;
                 case R.id.paddle_btn:
-                    Intent intent4 = new Intent(MainActivity.this, PaddleClassificationActivity.class);
+                    Intent intent3 = new Intent(MainActivity.this, PaddleClassificationActivity.class);
+                    startActivity(intent3);
+                    break;
+                case R.id.paddle_btn2:
+                    Intent intent4 = new Intent(MainActivity.this, PaddleDetectionActivity.class);
                     startActivity(intent4);
+                    break;
+                case R.id.tflite_btn2:
+                    Intent intent5 = new Intent(MainActivity.this, TFLiteDetectionActivity.class);
+                    startActivity(intent5);
+                case R.id.mnn_btn2:
+                    Intent intent6 = new Intent(MainActivity.this, MNNDetectionActivity.class);
+                    startActivity(intent6);
                     break;
             }
         }else {
@@ -54,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // check had permission
     private boolean hasPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+            return checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
                     checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         } else {
             return true;
@@ -64,7 +79,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // request permission
     private void requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            requestPermissions(new String[]{Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
     }
 }

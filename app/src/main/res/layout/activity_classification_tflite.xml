@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TFLite分类"
+            android:text="TFLite 分类"
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:textSize="18sp" />

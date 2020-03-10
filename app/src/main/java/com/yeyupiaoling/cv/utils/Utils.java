@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Size;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,10 +16,63 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class Utils {
     private static final String TAG = Utils.class.getName();
 
+
+    // 获取最优的预览图片大小
+    public static Size chooseOptimalSize(final Size[] choices, final int width, final int height) {
+        final Size desiredSize = new Size(width, height);
+
+        // Collect the supported resolutions that are at least as big as the preview Surface
+        boolean exactSizeFound = false;
+        float desiredAspectRatio = width * 1.0f / height; //in landscape perspective
+        float bestAspectRatio = 0;
+        final List<Size> bigEnough = new ArrayList<Size>();
+        for (final Size option : choices) {
+            if (option.equals(desiredSize)) {
+                // Set the size but don't return yet so that remaining sizes will still be logged.
+                exactSizeFound = true;
+                break;
+            }
+
+            float aspectRatio = option.getWidth() * 1.0f / option.getHeight();
+            if (aspectRatio > desiredAspectRatio) continue; //smaller than screen
+            //try to find the best aspect ratio which fits in screen
+            if (aspectRatio > bestAspectRatio) {
+                if (option.getHeight() >= height && option.getWidth() >= width) {
+                    bigEnough.clear();
+                    bigEnough.add(option);
+                    bestAspectRatio = aspectRatio;
+                }
+            } else if (aspectRatio == bestAspectRatio) {
+                if (option.getHeight() >= height && option.getWidth() >= width) {
+                    bigEnough.add(option);
+                }
+            }
+        }
+        if (exactSizeFound) {
+            return desiredSize;
+        }
+
+        if (bigEnough.size() > 0) {
+            final Size chosenSize = Collections.min(bigEnough, new Comparator<Size>() {
+                @Override
+                public int compare(Size lhs, Size rhs) {
+                    return Long.signum(
+                            (long) lhs.getWidth() * lhs.getHeight() - (long) rhs.getWidth() * rhs.getHeight());
+                }
+            });
+            return chosenSize;
+        } else {
+            return choices[0];
+        }
+    }
 
     /**
      * copy model file to local
@@ -114,15 +168,5 @@ public class Utils {
             cursor.close();
         }
         return result;
-    }
-
-    public static Bitmap getScaleBitmap(Bitmap bitmap, int size) {
-        int bmpWidth = bitmap.getWidth();
-        int bmpHeight = bitmap.getHeight();
-        float scaleWidth = (float) size / bitmap.getWidth();
-        float scaleHeight = (float) size / bitmap.getHeight();
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        return Bitmap.createBitmap(bitmap, 0, 0, bmpWidth, bmpHeight, matrix, true);
     }
 }

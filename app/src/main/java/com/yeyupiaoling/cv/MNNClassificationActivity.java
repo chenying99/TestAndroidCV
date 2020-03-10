@@ -57,7 +57,7 @@ public class MNNClassificationActivity extends AppCompatActivity {
         selectModelDialog();
     }
 
-    private void initView(){
+    private void initView() {
         Button button1 = findViewById(R.id.button1);
         Button button2 = findViewById(R.id.button2);
         imageView = findViewById(R.id.image_view);
@@ -167,9 +167,11 @@ public class MNNClassificationActivity extends AppCompatActivity {
                 try {
                     FileInputStream fis = new FileInputStream(image_path);
                     imageView.setImageBitmap(BitmapFactory.decodeStream(fis));
+                    long start = System.currentTimeMillis();
                     int result = mnnClassification.predictImage(image_path);
-                    Log.d(TAG, "预测结果: " + result);
-                    textView.setText("预测结果: " + result);
+                    long end = System.currentTimeMillis();
+                    Log.d(TAG, "预测结果: " + result + ", 预测时间" + (end - start) + "ms");
+                    textView.setText("预测结果: " + result + ", 预测时间" + (end - start) + "ms");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

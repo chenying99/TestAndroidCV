@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yeyupiaoling.cv">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -13,10 +14,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PaddleClassificationActivity" />
-        <activity android:name=".MNNClassificationActivity" />
-        <activity android:name=".TFLiteClassificationActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MNNDetectionActivity"></activity>
+        <activity
+            android:name=".TFLiteDetectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PaddleDetectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PaddleClassificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MNNClassificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TFLiteClassificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
